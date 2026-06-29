@@ -44,7 +44,7 @@ class UpstreamSpec:
 SPECIAL_UPSTREAMS = {
     "device/phh/treble": UpstreamOverride(
         url="https://github.com/TrebleDroid/device_phh_treble.git",
-        fetch_ref="master",
+        fetch_ref="android-14.0",
     ),
     "external/selinux": UpstreamOverride(
         url="https://android.googlesource.com/platform/external/selinux",
@@ -81,6 +81,10 @@ SPECIAL_UPSTREAMS = {
     "vendor/gapps": UpstreamOverride(
         url="https://gitlab.com/MindTheGapps/vendor_gapps.git",
         fetch_ref="upsilon",
+    ),
+    "vendor/partner_gms": UpstreamOverride(
+       url="https://github.com/lineageos4microg/android_vendor_partner_gms",
+       fetch_ref="master",
     ),
 }
 
