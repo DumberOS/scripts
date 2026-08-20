@@ -19,7 +19,8 @@ if [ ! -f "$APK" ]; then
   exit 1
 fi
 
-ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+ROOT=.
+#$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 APKSIGNER=${APKSIGNER:-"$ROOT/out/host/linux-x86/bin/apksigner"}
 if [ ! -x "$APKSIGNER" ]; then
   echo "apksigner not found at $APKSIGNER (set APKSIGNER=...)" >&2
