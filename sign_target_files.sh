@@ -17,12 +17,16 @@ sign_target_files_apks -o -d ~/.android-certs --allow_gsi_debug_sepolicy \
     --extra_apks HalfSheetUX.apk=$HOME/.android-certs/releasekey \
     --extra_apks HealthConnectBackupRestore.apk=$HOME/.android-certs/releasekey \
     --extra_apks HealthConnectController.apk=$HOME/.android-certs/releasekey \
+    --extra_apks ImsService.apk=$HOME/.android-certs/platform \
+    --extra_apks MtkGbaService.apk=$HOME/.android-certs/platform \
+    --extra_apks MtkTelephonyAssist.apk=$HOME/.android-certs/platform \
     --extra_apks OsuLogin.apk=$HOME/.android-certs/releasekey \
     --extra_apks SafetyCenterResources.apk=$HOME/.android-certs/releasekey \
     --extra_apks ServiceConnectivityResources.apk=$HOME/.android-certs/releasekey \
     --extra_apks ServiceUwbResources.apk=$HOME/.android-certs/releasekey \
     --extra_apks ServiceWifiResources.apk=$HOME/.android-certs/releasekey \
     --extra_apks WifiDialog.apk=$HOME/.android-certs/releasekey \
+    --extra_apks mediatek-res.apk=$HOME/.android-certs/platform \
     --extra_apks com.android.adbd.apex=$HOME/.android-certs/com.android.adbd \
     --extra_apks com.android.adservices.apex=$HOME/.android-certs/com.android.adservices \
     --extra_apks com.android.adservices.api.apex=$HOME/.android-certs/com.android.adservices.api \
