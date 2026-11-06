@@ -38,7 +38,10 @@ exec 9>"${OUT_DIR:-out}/.dumberos-image-build.lock" || exit 1
 run flock -n 9
 
 run source build/envsetup.sh
-run bash packages/apps/Messaging/tools/prepare-dumber-chat.sh
+# These artifacts ship with the app repositories. Image builders need neither
+# Cargo/an external NDK nor a WebRTC checkout.
+run python3 packages/apps/Messaging/tools/verify-dumber-chat-prebuilts.py
+run python3 packages/apps/Dialer/tools/verify-webrtc-prebuilts.py
 OUTPUT_DIR=${BUILD_OUTPUT_DIR:-$HOME/build-output}
 run mkdir -p "$OUTPUT_DIR"
 BUILD_DATE=$(date -u +%Y%m%d)
