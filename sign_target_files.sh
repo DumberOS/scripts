@@ -1,14 +1,25 @@
 #!/bin/bash
 
-OUTFILE="$1"
-INFILE="$2"
-
-if [ -z "$OUTFILE" ]; then
-    OUTFILE="signed-target_files.zip"
-fi
+set -e
+OUTFILE=${1:-signed-target_files.zip}
+INFILE=${2:-}
 
 if [ -z "$INFILE" ]; then
-    INFILE="$OUT/obj/PACKAGING/target_files_intermediates/*-target_files*.zip"
+    if [ -z "${OUT:-}" ]; then
+        echo 'Pass an input target-files ZIP or set OUT using lunch.' >&2
+        exit 2
+    fi
+    shopt -s nullglob
+    inputs=("$OUT"/obj/PACKAGING/target_files_intermediates/*-target_files*.zip)
+    if [ "${#inputs[@]}" -ne 1 ]; then
+        echo 'Expected exactly one target-files ZIP; pass the input path explicitly.' >&2
+        exit 2
+    fi
+    INFILE=${inputs[0]}
+fi
+if [ ! -s "$INFILE" ] || [ "$INFILE" -ef "$OUTFILE" ]; then
+    echo 'Input ZIP must exist, be nonempty, and differ from the output.' >&2
+    exit 2
 fi
 
 sign_target_files_apks -o -d ~/.android-certs --allow_gsi_debug_sepolicy \
@@ -137,4 +148,4 @@ sign_target_files_apks -o -d ~/.android-certs --allow_gsi_debug_sepolicy \
     --extra_apex_payload_key com.google.pixel.camera.hal.apex=$HOME/.android-certs/com.google.pixel.camera.hal.pem \
     --extra_apex_payload_key com.google.pixel.vibrator.hal.apex=$HOME/.android-certs/com.google.pixel.vibrator.hal.pem \
     --extra_apex_payload_key com.qorvo.uwb.apex=$HOME/.android-certs/com.qorvo.uwb.pem \
-    $INFILE $OUTFILE
+    "$INFILE" "$OUTFILE"
